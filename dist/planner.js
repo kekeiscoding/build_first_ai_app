@@ -10,9 +10,10 @@ export function makePlan(exams,{start=dayKey(new Date()),minutes=90}={}){
   const active=eligible.filter(e=>e.date>key);
   const ranked=active.map(e=>({e,weight:((Number(e.difficulty)||2)*Math.max(1,Number(e.hours)||4)-((total.get(e.id)||0)/60))/Math.max(1,Math.round((parseDay(e.date)-date)/86400000))})).sort((a,b)=>b.weight-a.weight);
   let remaining=Number(minutes);
-  for(const {e} of ranked){const done=total.get(e.id)||0,target=(Number(e.hours)||4)*60;if(done>=target||remaining<15)continue;const duration=Math.min(45,remaining,target-done);if(duration<15)continue;
-   const until=Math.round((parseDay(e.date)-date)/86400000);sessions.push({id:`${key}-${e.id}`,examId:e.id,date:key,subject:e.subject,topic:e.topics||'Core concepts',minutes:duration,method:until<=2?'Practice & recall':done===0?'Understand & map':'Active recall',done:false});total.set(e.id,done+duration);remaining-=duration;
-  }
+  let added=true;
+  while(remaining>=15&&added){added=false;for(const {e} of ranked){const done=total.get(e.id)||0,target=(Number(e.hours)||4)*60;if(done>=target||remaining<15)continue;const duration=Math.min(45,remaining,target-done);if(duration<15)continue;
+   const until=Math.round((parseDay(e.date)-date)/86400000);sessions.push({id:`${key}-${e.id}-${done}`,examId:e.id,date:key,subject:e.subject,topic:e.topics||'Core concepts',minutes:duration,method:until<=2?'Practice & recall':done===0?'Understand & map':'Active recall',done:false});total.set(e.id,done+duration);remaining-=duration;added=true;
+  }}
  }
  return sessions;
 }
