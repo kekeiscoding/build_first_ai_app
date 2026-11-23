@@ -4,65 +4,85 @@
 
 ## Problem and solution
 
-Students often have exam dates in one place, notes in another, and little idea what to study next. TuonTa turns deadlines into manageable daily sessions and helps students understand their materials with a browser-based AI companion.
+Students have exam dates in one place, notes in another, and little idea what to study next. TuonTa turns deadlines into manageable daily sessions and helps students understand their materials using hosted AI.
 
 ## Run locally
 
-Install Node.js 20 or later, then run from this folder:
+Install Node.js 22 or later. Copy `.env.example` to `.env`, add your own `GROQ_API_KEY`, and run:
 
 ```sh
-npm start
+node --env-file-if-exists=.env server.mjs
 ```
 
-Open http://127.0.0.1:4173. No npm installation, account, API key, or backend service is required. Internet access is required for fonts, document readers, and the initial AI model download. Serve through HTTP or HTTPS; opening index.html directly does not support the module worker.
+Open http://127.0.0.1:4173. No npm dependencies or package installation are needed. Internet access is required for Groq inference, document readers, and fonts. Without a key the calendar works and the chatbot displays a setup message.
+
+## Hosted AI setup
+
+Create a Groq key at https://console.groq.com/keys. The key belongs only in the ignored `.env` file locally and a protected `GROQ_API_KEY` runtime secret in production. Configure optional `GROQ_MODEL` to change the server-selected model; the default is `openai/gpt-oss-20b`. The browser never receives the key. Native Sites environment changes require deploying a version to apply the new environment revision.
+
+The browser sends requests to its same-origin `/api/ai` server route, which calls `https://api.groq.com/openai/v1/chat/completions`. `/api/ai/status` reports readiness and model name without exposing credentials. Invalid requests, timeouts, quota errors, missing keys, and provider failures have user-readable messages. Costs and quotas depend on the Groq account; a key does not guarantee unlimited free usage.
 
 ## Features
 
-- Responsive coral-and-violet homepage; planner and study buddy open in separate tabs.
-- Add exam dates through a calendar or form, confidence level, topic, and target study hours.
-- Deadline-aware scheduling: daily time budget, sessions up to 45 minutes, no sessions on/after an exam, 90-day planning horizon, capacity warnings.
-- Browser-local saved exams, sessions, and completion state; changes sync across tabs on the same origin.
-- Export a CSV plan.
-- Read text-based PDFs (first 80 pages), DOCX, TXT, or Markdown up to 10 MB. Analysis includes up to 150,000 characters.
-- Ask questions with a relevant source excerpt; generate sampled summaries, study notes, and a practice question with a revealable suggested answer.
-- Download the conversation; sample exams and biology material for a quick demo.
+- Responsive homepage; study planner and study buddy open in separate tabs.
+- Calendar or form entry for exam dates, confidence, topics, and target study hours.
+- Deadline-aware scheduling with daily budgets, sessions up to 45 minutes, multiple study blocks, a 90-day horizon, and capacity warnings.
+- Saved exam and completion state in localStorage; changes sync across same-origin tabs.
+- CSV study-plan export and AI coaching based on exam dates and available time.
+- General study chat without an upload, with recent conversational context.
+- Read text PDFs (first 80 pages), DOCX, TXT, and Markdown up to 10 MB; retain up to 150,000 extracted characters in the tab.
+- Document questions with source labels; coherent summaries and study notes; five-question practice quizzes with revealable answers.
+- Download conversation and notes. Sample exams and biology notes for demos.
 
 ## AI implementation
 
-TuonTa uses **Xenova/flan-t5-small**, an Apache-2.0 licensed, instruction-tuned open-source model, through **Hugging Face Transformers.js 3.8.1** and ONNX Runtime Web. A module Web Worker downloads quantized weights and performs inference locally using WebAssembly. There are no API secrets. Model artifacts are downloaded from Hugging Face and may be cached by the browser.
+The AI is **OpenAI GPT-OSS 20B**, an open-weight model hosted by **Groq**, accessed through its chat-completions API with a Groq key. This integration does not use an OpenAI API key. The model runs remotely, so visitors do not download model weights.
 
-Model card: https://huggingface.co/Xenova/flan-t5-small
+Provider docs: https://console.groq.com/docs/text-chat
 
-Runtime docs: https://huggingface.co/docs/transformers.js
+Current models: https://console.groq.com/docs/models
 
-The scheduler is a transparent algorithm, prioritizing exams using proximity, confidence, and remaining requested study hours. AI adds study guidance based on these dates and targets. It does not invent calendar dates or control the daily time budget. Document Q&A selects a relevant text chunk using keyword overlap, then conditions the model on that excerpt. Summaries and notes sample the beginning, middle, and end of longer files and label that coverage. Quizzes generate a question and a suggested answer with separate inference calls.
+The scheduler is deterministic: it prioritizes deadlines, confidence, remaining study hours, and daily capacity. Hosted AI supplies study coaching and explanations. Calendar constraints remain enforced by code.
 
-## Limitations and privacy
+For document questions, files up to 24,000 characters are supplied in full; longer files use up to twelve relevant excerpts ranked by keyword overlap. Summaries, notes, and quizzes include up to 45,000 characters. Longer documents use selected sections across the beginning, middle, and end and label that limited coverage. The server instructs the model to treat document content as reference data and admit when information is missing. These instructions reduce, but cannot eliminate, inaccurate answers.
 
-FLAN-T5-small is a compact model, not a large conversational assistant. Answers can be brief or inaccurate; check them against the original material. English is recommended. First AI use downloads roughly 80 MB and can take several minutes depending on network and device speed. A modern desktop browser is recommended. Model/network failures are shown to the user. No synthetic response is presented as successful model inference.
+## Privacy and limits
 
-Scanned PDFs need external OCR. File contents and conversation are kept in memory in the current tab, not persisted or sent to an inference server. Exams and study progress use localStorage without accounts or cross-device sync. External CDNs receive normal resource requests for the runtime and parser libraries. Avoid loading untrusted documents. Cloud hosting starts private; make the hosting audience public before sharing with judges if appropriate.
+Files are parsed in the browser. When a visitor requests AI assistance, selected extracted document text and up to six recent chat messages are sent through TuonTa's server to Groq. Raw uploaded file bytes are not forwarded. Application code does not persist document text or conversations on the server. Groq's own data policies apply to requests. Exam dates and completion state are stored in browser localStorage; there is no account database or cross-device sync. External CDNs serve fonts and document parsers.
 
-## Technologies
+Check answers against original material. Scanned PDFs need OCR before upload. English is recommended. Groq may impose account quotas or discontinue a model; use the configurable model setting as needed. The Site's existing private audience is preserved. Before making the app public, add per-user authorization and a durable rate limit for the paid API route.
 
-Vanilla HTML/CSS/JavaScript, Node.js static preview server, Transformers.js, PDF.js 4.10.38, Mammoth.js 1.9.0. The hosted build is the `dist` folder; there is no build step. Deploy that folder to any static host that supports module workers. Sites deployment configuration is in `.openai/hosting.json`.
+## Build and deploy
+
+```sh
+node build.mjs
+```
+
+The build embeds browser assets into a dependency-free Cloudflare Worker ES module at `dist/server/index.js`, with a default fetch handler. Source routes live in `worker/api.js`; `dist/server` is generated and ignored. The manifest `.openai/hosting.json` retains the existing Sites project ID and uses server-backed deployment. Deploy the Worker using Sites rather than uploading only the static `dist` files.
 
 ## Verify
 
 ```sh
-npm test
+node --test tests/planner.test.mjs tests/api.test.mjs
 node --check dist/app.js
-node --check dist/ai-worker.js
+node --check worker/api.js
+node build.mjs
+node --check dist/server/index.js
+node --env-file=.env scripts/smoke-ai.mjs
 ```
 
-The tests cover scheduling limits, exam boundaries, impossible time budgets, and document retrieval. Browser checks should also cover model download/inference, PDF and DOCX parsing, mobile layout, refresh persistence, and CSV export.
+The automated tests cover scheduling limits, exam boundaries, tight budgets, document retrieval, server request validation, credential privacy, and provider error handling. The final command makes a real Groq request using a small sample biology prompt and consumes API quota. Browser verification should cover chat, document summary, quiz reveal, and AI planner guidance after deployment.
 
-## Your contribution — complete before submission
+## Technologies
 
-This prototype was implemented with OpenAI Codex assistance for design, code, and documentation. Review the code and replace the prompts below with your personal experience; they are not claims about work or learning you have already done.
+HTML/CSS/JavaScript, Node.js, Cloudflare Worker, Groq Chat Completions API, PDF.js 4.10.38, and Mammoth.js 1.9.0. The original FLAN-T5 browser integration was replaced by hosted AI for more useful responses.
+
+## Your contribution - complete before submission
+
+This prototype was implemented with OpenAI Codex assistance for design, code, and documentation. Replace these prompts with your personal experience:
 
 - What I contributed: [your idea, requirements, testing, changes, and demo preparation]
-- What I learned: [your own experience with scheduling, local AI, document processing, or web development]
-- AI-assisted tools used: OpenAI Codex; [add any others]
-- Accessible source-code link: [publish this folder to your GitHub repository and insert its URL]
-- Demo and screenshots: follow `DEMO.md` and include the resulting links in the submission.
+- What I learned: [your experience with scheduling, hosted AI, secrets, file processing, or web development]
+- AI-assisted development tools: OpenAI Codex; [add any others]
+- Accessible source-code link: [publish this folder to GitHub; never include .env]
+- Demo and screenshots: follow `DEMO.md` and include the resulting links.

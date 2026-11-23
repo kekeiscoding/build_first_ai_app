@@ -2,3 +2,7 @@ node_modules/
 .DS_Store
 *.tar.gz
 .sites/
+.env
+.env.*
+!.env.example
+dist/server/
