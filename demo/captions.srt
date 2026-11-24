@@ -1,0 +1,167 @@
+1
+00:00:00,160 --> 00:00:03,704
+Meet Tuon Ta, an AI study planner built for students.
+
+2
+00:00:03,704 --> 00:00:11,502
+It brings exam planning and document study into one website, helping you turn busy calendars and confusing notes into clear next steps.
+
+3
+00:00:12,662 --> 00:00:14,440
+The homepage introduces two tools.
+
+4
+00:00:14,440 --> 00:00:20,485
+Choose the study planner to organize upcoming exams, or meet the study buddy to understand your materials.
+
+5
+00:00:20,485 --> 00:00:25,819
+Each tool opens in a separate tab, so you can move between planning and learning.
+
+6
+00:00:26,979 --> 00:00:29,839
+In the planner, enter a subject and exam date.
+
+7
+00:00:29,839 --> 00:00:34,288
+Add topics, your confidence level, and the number of hours you want to study.
+
+8
+00:00:34,288 --> 00:00:38,736
+You can also click a future date directly on the calendar to select it.
+
+9
+00:00:39,896 --> 00:00:46,589
+Next, choose your daily study budget, from thirty to one hundred twenty minutes, and build your plan.
+
+10
+00:00:46,589 --> 00:00:50,526
+The scheduling algorithm considers deadlines, confidence, and remaining study hours.
+
+11
+00:00:50,526 --> 00:00:54,857
+Sessions stay within your daily budget and finish before each exam.
+
+12
+00:00:56,017 --> 00:00:59,740
+Your plan lists dates, topics, study methods, and session lengths.
+
+13
+00:00:59,740 --> 00:01:05,323
+Check off completed sessions to track progress, or export the plan as a CSV file.
+
+14
+00:01:05,323 --> 00:01:11,279
+Exam dates and completion progress are saved in this browser, so they remain after a refresh.
+
+15
+00:01:12,439 --> 00:01:15,268
+For extra support, request AI study guidance.
+
+16
+00:01:15,268 --> 00:01:20,523
+It uses your exam information and available time to suggest priorities and techniques.
+
+17
+00:01:20,523 --> 00:01:26,181
+The calendar schedule is controlled by code, while the AI adds explanations and coaching.
+
+18
+00:01:27,341 --> 00:01:32,030
+The study buddy also answers general study questions without an upload.
+
+19
+00:01:32,030 --> 00:01:37,144
+Ask for an explanation, a revision strategy, or help understanding a concept.
+
+20
+00:01:37,144 --> 00:01:40,128
+Recent messages provide context for follow-up questions.
+
+21
+00:01:41,288 --> 00:01:49,247
+To study a document, upload a PDF, Word document, text file, or Markdown file, up to ten megabytes.
+
+22
+00:01:49,247 --> 00:01:52,784
+You can also try the built-in biology notes.
+
+23
+00:01:52,784 --> 00:01:58,089
+Text-based PDFs work directly; scanned pages need optical character recognition before uploading.
+
+24
+00:01:59,249 --> 00:02:02,196
+Choose Summarize for an overview and key points.
+
+25
+00:02:02,196 --> 00:02:05,880
+The response identifies its source and states the coverage used.
+
+26
+00:02:05,880 --> 00:02:11,037
+For longer files, selected sections are analyzed rather than every part of the document.
+
+27
+00:02:12,197 --> 00:02:17,927
+Make Notes turns the material into organized revision notes, with concepts, definitions, and important ideas.
+
+28
+00:02:17,927 --> 00:02:22,894
+Responses can include headings and tables to make the information easier to review.
+
+29
+00:02:24,054 --> 00:02:27,078
+You can ask targeted questions about your uploaded material.
+
+30
+00:02:27,078 --> 00:02:34,471
+The assistant uses the document or relevant excerpts to answer, with source labels to help you check the response against the original.
+
+31
+00:02:35,631 --> 00:02:38,554
+Choose Quiz Me to generate five practice questions.
+
+32
+00:02:38,554 --> 00:02:41,112
+Try answering before revealing each suggested answer.
+
+33
+00:02:41,112 --> 00:02:46,958
+This turns passive reading into active recall and helps you notice topics that need another review.
+
+34
+00:02:48,118 --> 00:02:53,391
+Download the conversation to keep your notes and answers, or clear the chat to start fresh.
+
+35
+00:02:53,391 --> 00:02:58,005
+Files and chat stay in the current tab until you leave or clear them.
+
+36
+00:02:58,005 --> 00:03:02,290
+AI responses can be inaccurate, so always compare important claims with your source.
+
+37
+00:03:03,450 --> 00:03:09,041
+Tuon Ta uses the open-weight GPT O S S twenty B model through Groq's hosted API.
+
+38
+00:03:09,041 --> 00:03:11,487
+There is no model download for visitors.
+
+39
+00:03:11,487 --> 00:03:13,933
+The API key stays on the server.
+
+40
+00:03:13,933 --> 00:03:21,271
+When you request AI help, selected document text and recent messages are sent to Groq, and usage follows the account's quota.
+
+41
+00:03:22,431 --> 00:03:28,457
+Tuon Ta was created by Keane Prudente with OpenAI Codex assistance for design, code, and documentation.
+
+42
+00:03:28,457 --> 00:03:36,367
+Try the public demo, explore the source code on GitHub, and start with one subject, one question, and one small step.

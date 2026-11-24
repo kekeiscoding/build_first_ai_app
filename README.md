@@ -2,7 +2,7 @@
 
 **A little plan. A lot of possibility.** An AI study planner and document study buddy for Build Your First AI App 2026, hosted by Yasir Insights.
 
-[Live demo](https://tuonta-study.topgerbil.chatgpt.site) · [Source code](https://github.com/kekeiscoding/build_first_ai_app)
+[Video walkthrough](demo/TuonTa-Walkthrough.mp4) · [Live demo](https://tuonta-study.topgerbil.chatgpt.site) · [Source code](https://github.com/kekeiscoding/build_first_ai_app)
 
 The hosted demo is available for hackathon judges and visitors.
 
@@ -90,4 +90,5 @@ This prototype was implemented with OpenAI Codex assistance for design, code, an
 - AI-assisted development tools: OpenAI Codex
 - Source code: [https://github.com/kekeiscoding/build_first_ai_app](https://github.com/kekeiscoding/build_first_ai_app)
 - Live demo: [Try TuonTa](https://tuonta-study.topgerbil.chatgpt.site)
-- Demo and screenshots: follow `DEMO.md` and include the resulting links.
+- Demo video: [TuonTa walkthrough](demo/TuonTa-Walkthrough.mp4) — 3 minutes 37 seconds, with narration and captions.
+- Transcript and captions: [Transcript](demo/transcript.md) · [SRT captions](demo/captions.srt). See `DEMO.md` for the submission guide.

@@ -1,5 +1,21 @@
 # TuonTa demo guide
 
+## Completed video walkthrough
+
+[Watch or download the narrated video](demo/TuonTa-Walkthrough.mp4)
+
+The 3 minute 37 second MP4 explains the homepage, exam entry and calendar, daily study budgets, generated sessions, progress and CSV export, AI coaching, document uploads, summaries, study notes, document Q&A, quizzes, conversation downloads, and the hosted AI implementation.
+
+The video uses captures from the real public website with chapter titles, English synthetic voice narration, and burned-in captions. It is an explanatory walkthrough assembled from website captures, rather than an uninterrupted screen recording. It includes a selectable subtitle track as well.
+
+- Resolution: 1920 × 1080, 24 frames per second
+- Format: H.264 video and AAC audio in MP4
+- [Narration transcript](demo/transcript.md)
+- [SRT captions](demo/captions.srt)
+- [Preview image](demo/preview.jpg)
+
+## Recording your own version
+
 Suggested length: 2–3 minutes. Configure the Groq hosting secret and verify the AI connection before recording.
 
 1. Show the homepage and explain: “TuonTa helps students turn exam pressure into manageable study sessions.”
