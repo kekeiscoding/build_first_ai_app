@@ -4,7 +4,7 @@
 
 [Live demo](https://tuonta-study.topgerbil.chatgpt.site) · [Source code](https://github.com/kekeiscoding/build_first_ai_app)
 
-The hosted demo currently requires owner access.
+The hosted demo is available for hackathon judges and visitors.
 
 ## Problem and solution
 
@@ -54,7 +54,7 @@ For document questions, files up to 24,000 characters are supplied in full; long
 
 Files are parsed in the browser. When a visitor requests AI assistance, selected extracted document text and up to six recent chat messages are sent through TuonTa's server to Groq. Raw uploaded file bytes are not forwarded. Application code does not persist document text or conversations on the server. Groq's own data policies apply to requests. Exam dates and completion state are stored in browser localStorage; there is no account database or cross-device sync. External CDNs serve fonts and document parsers.
 
-Check answers against original material. Scanned PDFs need OCR before upload. English is recommended. Groq may impose account quotas or discontinue a model; use the configurable model setting as needed. The Site's existing private audience is preserved. Before making the app public, add per-user authorization and a durable rate limit for the paid API route.
+Check answers against original material. Scanned PDFs need OCR before upload. English is recommended. Groq may impose account quotas or discontinue a model; use the configurable model setting as needed. The live hackathon demo is public. AI requests use the site owner's configured Groq account and are subject to its quota.
 
 ## Build and deploy
 
@@ -81,3 +81,13 @@ The automated tests cover scheduling limits, exam boundaries, tight budgets, doc
 
 HTML/CSS/JavaScript, Node.js, Cloudflare Worker, Groq Chat Completions API, PDF.js 4.10.38, and Mammoth.js 1.9.0. The original FLAN-T5 browser integration was replaced by hosted AI for more useful responses.
 
+## Your contribution
+
+This prototype was implemented with OpenAI Codex assistance for design, code, and documentation. Replace these prompts with your personal experience:
+
+- What I contributed: TuonTa Website Flow, Structure, General Idea of the Website.
+- What I learned: I learned how to create an API key to gain access to an open source AI tool.
+- AI-assisted development tools: OpenAI Codex
+- Source code: [https://github.com/kekeiscoding/build_first_ai_app](https://github.com/kekeiscoding/build_first_ai_app)
+- Live demo: [Try TuonTa](https://tuonta-study.topgerbil.chatgpt.site)
+- Demo and screenshots: follow `DEMO.md` and include the resulting links.
