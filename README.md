@@ -2,6 +2,10 @@
 
 **A little plan. A lot of possibility.** An AI study planner and document study buddy for Build Your First AI App 2026, hosted by Yasir Insights.
 
+[Live demo](https://tuonta-study.topgerbil.chatgpt.site) · [Source code](https://github.com/kekeiscoding/build_first_ai_app)
+
+The hosted demo currently requires owner access.
+
 ## Problem and solution
 
 Students have exam dates in one place, notes in another, and little idea what to study next. TuonTa turns deadlines into manageable daily sessions and helps students understand their materials using hosted AI.
@@ -84,5 +88,5 @@ This prototype was implemented with OpenAI Codex assistance for design, code, an
 - What I contributed: [your idea, requirements, testing, changes, and demo preparation]
 - What I learned: [your experience with scheduling, hosted AI, secrets, file processing, or web development]
 - AI-assisted development tools: OpenAI Codex; [add any others]
-- Accessible source-code link: [publish this folder to GitHub; never include .env]
+- Source code: https://github.com/kekeiscoding/build_first_ai_app
 - Demo and screenshots: follow `DEMO.md` and include the resulting links.
