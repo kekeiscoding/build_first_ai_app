@@ -1,0 +1,10 @@
+.env
+.env.*
+.openai/
+.sites/
+dist/server/
+node_modules/
+public/
+server.mjs
+demo/
+tests/

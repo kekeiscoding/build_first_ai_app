@@ -58,6 +58,18 @@ Check answers against original material. Scanned PDFs need OCR before upload. En
 
 ## Build and deploy
 
+### Vercel
+
+Import this repository using the repository root as the Root Directory. The tracked `vercel.json` sets Framework Preset to **Other**, Build Command to `node scripts/build-vercel.mjs`, and Output Directory to `public`. Use Node.js 22.x. No Start Command is needed on Vercel.
+
+The Vercel build copies only browser assets into `public`. The two Web API handlers in `api/` run as Node.js Vercel Functions and reuse `worker/api.js`. The local `server.mjs` preview server and generated Cloudflare Worker are not Vercel function entry points.
+
+Add `GROQ_API_KEY` as a sensitive Vercel environment variable for Production (and Preview if desired), plus `GROQ_MODEL=openai/gpt-oss-20b`. Environment variables configured in ChatGPT Sites do not transfer to Vercel. After adding or changing them, redeploy. Never use a public/client prefix for the API key.
+
+If the homepage returns `FUNCTION_INVOCATION_FAILED`, check that the deployment uses this `vercel.json` and clear any old framework/build/output overrides. If the page works but AI does not, open `/api/ai/status`: `configured: false` means the Groq secret is missing in that deployment. Runtime Logs show server invocation failures. Do not paste keys into logs or issues.
+
+### ChatGPT Sites / Cloudflare Worker
+
 ```sh
 node build.mjs
 ```
