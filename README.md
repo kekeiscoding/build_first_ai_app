@@ -81,12 +81,3 @@ The automated tests cover scheduling limits, exam boundaries, tight budgets, doc
 
 HTML/CSS/JavaScript, Node.js, Cloudflare Worker, Groq Chat Completions API, PDF.js 4.10.38, and Mammoth.js 1.9.0. The original FLAN-T5 browser integration was replaced by hosted AI for more useful responses.
 
-## Your contribution - complete before submission
-
-This prototype was implemented with OpenAI Codex assistance for design, code, and documentation. Replace these prompts with your personal experience:
-
-- What I contributed: [your idea, requirements, testing, changes, and demo preparation]
-- What I learned: [your experience with scheduling, hosted AI, secrets, file processing, or web development]
-- AI-assisted development tools: OpenAI Codex; [add any others]
-- Source code: https://github.com/kekeiscoding/build_first_ai_app
-- Demo and screenshots: follow `DEMO.md` and include the resulting links.
